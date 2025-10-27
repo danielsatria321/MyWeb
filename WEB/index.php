@@ -1,5 +1,12 @@
 <?php
 require 'config.php';
+session_start();
+
+
+if (!isset($_SESSION['user'])) {
+    header('Location: login.php');
+    exit();
+}
 
 
 $search = isset($_GET['search']) ? trim($_GET['search']) : '';
@@ -107,7 +114,7 @@ $articles = $stmt->fetchAll();
                 <ul class="navbar-nav ms-auto align-items-center">
                     <?php if (is_logged_in()): ?>
                         <li class="nav-item me-3 text-white">
-                            👋 <?= htmlspecialchars($_SESSION['user']['username']) ?>
+                            Hallo <?= htmlspecialchars($_SESSION['user']['username']) ?>
                         </li>
                         <?php if (is_admin()): ?>
                             <li class="nav-item me-2">
